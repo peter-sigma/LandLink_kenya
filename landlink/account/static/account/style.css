@@ -1,0 +1,19 @@
+/* Custom Styles */
+/* Ensure the footer doesn't overlap the content */
+body {
+    padding-bottom: 100px; /* Adjust this value as needed */
+}
+/* Sticky footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: teal;
+    color: white;
+    padding: 20px 0;
+}
+header {
+    background-color: teal;
+    color: white;
+    padding: 20px 0;
+}
