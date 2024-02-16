@@ -1,0 +1,31 @@
+<!-- templates/land/index.html -->
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block title %}Home - LandLink{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2>Welcome to LandLink</h2>
+            <p>
+                LandLink is your one-stop solution for all your land-related needs.
+                We offer a wide range of services including buying, selling, and legal assistance.
+            </p>
+            <p>
+                Explore our website to learn more about our services and how we can assist you in your land transactions.
+            </p>
+            <p>
+                Visit our <a href="{% url 'about' %}">About</a> page to know more about us.
+            </p>
+            <p>
+                View our <a href="{% url 'login' %}">Login</a> page to access your account.
+            </p>
+            <p>
+                Check out our <a href="{% url 'github' %}  " target="_blank">GitHub</a> repository for the source code.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

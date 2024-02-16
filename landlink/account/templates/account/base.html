@@ -16,7 +16,33 @@ header {
     background-color: teal;
     color: white;
     padding: 20px 0;
-}</style>
+}
+/* Add this CSS in your CSS file or in a <style> tag within your HTML template */
+    .footer a {
+        color: white; /* Set the color of the links in the footer to white */
+    }
+    .sent-message {
+        border: 1px solid green; /* Green border for sent messages */
+        padding: 10px;
+        margin: 10px 0;
+        text-align: left;
+    }
+    
+    /* CSS for received messages */
+    .received-message {
+        border: 1px solid blue; /* Blue border for received messages */
+        padding: 10px;
+        margin: 10px 0;
+        text-align: right;
+    }
+    
+    /* Media queries for responsiveness */
+    @media (max-width: 767px) {
+        .sent-message, .received-message {
+            font-size: 14px; /* Adjust font size for small screens */
+        }
+    }</style>
+    </style>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,10 +75,13 @@ header {
                 <div class="col-md-6">
                     <p>&copy; 2024 LandLink. All rights reserved.</p>
                 </div>
-                <div class="col-md-6 text-md-right">
-                    <!-- Sign in / Log in buttons here -->
-                    <a href="{% url 'signup' %}" class="btn btn-primary mr-2">Sign Up</a>
-                    <a href="{% url 'login' %}" class="btn btn-secondary">Log In</a>
+                <div class="col-md-8 offset-md-2 text-center">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="list-inline-item"><a href="{% url 'about' %}">About</a></li>
+                        <li class="list-inline-item"><a href="{% url 'login' %}">Login</a></li>
+                        <li class="list-inline-item"><a href="https://github.com/peter-sigma/LandLink_kenya" >GitHub</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

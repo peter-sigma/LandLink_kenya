@@ -1,0 +1,50 @@
+<!-- land_detail.html -->
+
+{% extends 'account/base.html' %}
+{% block title %}Land Detail - {{ land.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <img src="{{ land.image.url }}" class="card-img-top img-fluid" alt="{{ land.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ land.title }}</h5>
+                    <p class="card-text">Owner: {{ land.owner.username }}</p>
+                    <p class="card-text">Owner's email: {{ land.owner.email }}</p>
+                    <p class="card-text">Price: {{ land.price }}</p>
+                    <p class="card-text">Description: {{ land.description }}</p>
+                    <button onclick="window.location.href='{% url 'messaging:send_message' receiver_id=land.owner.id %}'">Chat with Seller</button>
+                    <a href="{% url 'messaging:view_messages' %}">View Messages</a>
+
+                    <button id="getLocationBtn" class="btn btn-primary">Get Location</button>
+                    <a href="#" onclick="goBack()" class="btn btn-secondary">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("getLocationBtn").addEventListener("click", function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                var locationInput = document.getElementById("id_location"); // Replace 'id_location' with the actual ID of the location input field
+                locationInput.value = latitude + "," + longitude;
+                alert("Location fetched successfully: " + latitude + ", " + longitude);
+            }, function(error) {
+                alert("Error fetching location: " + error.message);
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    });
+function goBack() {
+    window.history.back();
+}
+
+</script>
+{% endblock %}

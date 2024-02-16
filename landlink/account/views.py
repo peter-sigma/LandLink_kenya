@@ -5,8 +5,17 @@ from django.shortcuts import render, redirect
 
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, HttpResponse
 
 
+from land.models import Land
+
+
+def about_us(request):
+    return HttpResponse("<h1>About not available for now</h1>")
+
+def github(request):
+    return redirect('https://github.com/peter-sigma/LandLink_kenya')
 
 def custom_signup_view(request):
     if request.method == 'POST':
@@ -47,7 +56,8 @@ def custom_logout(request):
 
 @login_required
 def buyer_dashboard(request):
-    return render(request, 'account/buyer_dashboard.html')
+    lands = Land.objects.all()
+    return render(request, 'account/buyer_dashboard.html', {'lands': lands})
 
 @login_required
 def seller_dashboard(request):

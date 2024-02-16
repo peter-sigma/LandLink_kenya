@@ -1,0 +1,53 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block title %}View Messages - LandLink{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Main content area for viewing messages -->
+            <div class="text-center"> <!-- Centering text -->
+                <h2>View Messages</h2>
+                {% if messages %}
+                    <div class="message-container">
+                        {% for message in messages %}
+                            {% if message.sender == request.user %}
+                                <!-- Display sent messages -->
+                                <div class="sent-message text-center rounded" style="background-color: green; color: white; padding: 5%;">
+                                    <p style="color: yellow; font-weight: bold; font-size: larger;">Sent to: {{ message.receiver.username }}</p><br>
+                                    <p>{{ message.content }}</p>
+                                    <p style="color: grey; font-style: italic;">Sent at: {{ message.timestamp }}</p>
+                                </div>
+                            {% else %}
+                                <!-- Display received messages -->
+                                <div class="received-message text-center rounded" style="background-color: grey; padding: 5%;">
+                                    <p style="font-style: italic; font-size: smaller;">Sent by: {{ message.sender.username }}</p><br>
+                                    <p style="font-weight: bold; font-size: larger;">{{ message.content }}</p>
+                                    <p style="font-style: italic; font-size: smaller;">Sent at: {{ message.timestamp }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <!-- Link to dashboard based on user type -->
+                    <div class="text-center mt-3"> <!-- Centering the link -->
+                        {% if request.user.is_authenticated %}
+                            {% if request.user.user_type == 'buyer' %}
+                                <a href="{% url 'buyer_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+                            {% elif request.user.user_type == 'seller' %}
+                                <a href="{% url 'seller_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+                            {% elif request.user.user_type == 'lawyer' %}
+                                <a href="{% url 'lawyer_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p>No messages.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div><br><br>
+{% endblock %}
