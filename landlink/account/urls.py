@@ -14,4 +14,5 @@ urlpatterns = [
     path('buyer/dashboard/', views.buyer_dashboard, name='buyer_dashboard'),
     path('seller/dashboard/', views.seller_dashboard, name='seller_dashboard'),
     path('lawyer/dashboard/', views.lawyer_dashboard, name='lawyer_dashboard'),
+    
 ]

@@ -1,0 +1,11 @@
+<!-- add_service.html -->
+{% extends 'land/base.html' %}
+{% block content %}
+<h2>Add Service</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="{% url 'select_service' %}" class="btn btn-secondary">Select Existing Services</a>
+</form>
+{% endblock %}

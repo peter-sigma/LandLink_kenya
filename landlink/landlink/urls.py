@@ -24,4 +24,6 @@ urlpatterns = [
     path('', include('account.urls')),
     path('', include('land.urls')),
     path('messaging/', include('messaging.urls')),
+    path('', include('land_service.urls')),
+    path('', include('location_app.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

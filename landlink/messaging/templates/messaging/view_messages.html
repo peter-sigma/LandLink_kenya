@@ -1,53 +1,71 @@
 {% extends 'account/base.html' %}
-{% load static %}
 
-{% block title %}View Messages - LandLink{% endblock %}
+{% block title %}
+messages
+  {% endif %}
+{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
-            <!-- Main content area for viewing messages -->
-            <div class="text-center"> <!-- Centering text -->
-                <h2>View Messages</h2>
-                {% if messages %}
-                    <div class="message-container">
-                        {% for message in messages %}
-                            {% if message.sender == request.user %}
-                                <!-- Display sent messages -->
-                                <div class="sent-message text-center rounded" style="background-color: green; color: white; padding: 5%;">
-                                    <p style="color: yellow; font-weight: bold; font-size: larger;">Sent to: {{ message.receiver.username }}</p><br>
-                                    <p>{{ message.content }}</p>
-                                    <p style="color: grey; font-style: italic;">Sent at: {{ message.timestamp }}</p>
+            {% if user_chats %}
+            <h2 class="text-center" style="color: green; font-family: 'Font Awesome 5 Free';">
+                <i class="fas fa-comments">{{chat.receiver.username}}</i> 
+            </h2> <!-- Styled the header with specified requirements -->
+
+            <ul class="list-group">
+                {% for chat in user_chats %}
+                <li class="list-group-item bg-light"> <!-- Added bg-light class for gray background -->
+                    <p class="text-center">
+                        <span class="font-weight-bold text-center text-uppercase"><i class="fas fa-comment-alt"></i> Chat with {{ chat.receiver.username }}</span>
+                    </p>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-center"> <!-- Center the buttons -->
+                            <form action="{% url 'messaging:open_chat' chat.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <div class="d-md-inline-block w-80"> <!-- Ensure responsiveness -->
+                                    <button type="submit" class="btn btn-success mb-2 mb-md-0 mr-md-2">Open Chat</button> <!-- Change button color to green and ensure responsiveness -->
                                 </div>
-                            {% else %}
-                                <!-- Display received messages -->
-                                <div class="received-message text-center rounded" style="background-color: grey; padding: 5%;">
-                                    <p style="font-style: italic; font-size: smaller;">Sent by: {{ message.sender.username }}</p><br>
-                                    <p style="font-weight: bold; font-size: larger;">{{ message.content }}</p>
-                                    <p style="font-style: italic; font-size: smaller;">Sent at: {{ message.timestamp }}</p>
+                            </form>
+                           
+
+                            <form action="{% url 'messaging:delete_chat' chat.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <div class="d-md-inline-block w-80"> <!-- Ensure responsiveness -->
+                                    <button type="submit" class="btn btn-danger mb-2 mb-md-0 mr-md-2">Delete Chat</button> <!-- Ensure responsiveness -->
                                 </div>
-                            {% endif %}
-                        {% endfor %}
+                            </form>
+
+                        </div>
                     </div>
-                    <br>
-                    <!-- Link to dashboard based on user type -->
-                    <div class="text-center mt-3"> <!-- Centering the link -->
-                        {% if request.user.is_authenticated %}
-                            {% if request.user.user_type == 'buyer' %}
-                                <a href="{% url 'buyer_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
-                            {% elif request.user.user_type == 'seller' %}
-                                <a href="{% url 'seller_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
-                            {% elif request.user.user_type == 'lawyer' %}
-                                <a href="{% url 'lawyer_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                {% else %}
-                    <p>No messages.</p>
-                {% endif %}
+
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="text-center mt-3"> <!-- Center the "Exit Chat" button -->
+                
+                <ul class="list-group">
+                    
+                    <li class="list-group-item bg-light"><a href="{% url 'lawyer_dashboard' %}" class="btn btn-success mb-2 mb-md-0 mr-md-2">create Chat</a> <!-- Change button color to green --> </li>
+                    <li class="list-group-item bg-light">{% if request.user.user_type == 'buyer' %}
+                        <a href="{% url 'buyer_dashboard' %}" class="btn btn-primary mb-2 mb-md-0 mr-md-2">Exit Chat</a> <!-- Change button color to blue -->
+                    {% elif request.user.user_type == 'seller' %}
+                        <a href="{% url 'seller_dashboard' %}" class="btn btn-primary mb-2 mb-md-0 mr-md-2">Exit Chat</a> <!-- Change button color to blue -->
+                    {% elif request.user.user_type == 'lawyer' %}
+                        <a href="{% url 'lawyer_dashboard' %}" class="btn btn-primary mb-2 mb-md-0 mr-md-2">Exit Chat</a> <!-- Change button color to blue --><li class="list-group-item bg-light">
+            
+                    {% endif %}
+                    </ul>
+                    
+                
             </div>
+            </ul>
+            {% else %}
+            <p>No chats available.</p>
+            {% endif %}
         </div>
     </div>
-</div><br><br>
+</div>
 {% endblock %}

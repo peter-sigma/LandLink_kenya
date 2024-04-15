@@ -1,12 +1,15 @@
 /* Custom Styles */
-/* Ensure the footer doesn't overlap the content */
 body {
-    padding-bottom: 100px; /* Adjust this value as needed */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 20px; /* Adjust this value as needed */
+}
+.content {
+    flex: 1; /* Allow the content to grow and take up remaining space */
 }
 /* Sticky footer */
 footer {
-    position: fixed;
-    bottom: 0;
     width: 100%;
     background-color: teal;
     color: white;
@@ -16,4 +19,66 @@ header {
     background-color: teal;
     color: white;
     padding: 20px 0;
+}
+/* Add this CSS in your CSS file or in a <style> tag within your HTML template */
+    .footer a {
+        color: white; /* Set the color of the links in the footer to white */
+    }
+    .sent-message {
+        border: 1px solid green; /* Green border for sent messages */
+        padding: 10px;
+        margin: 10px 0;
+        text-align: left;
+    }
+    
+    /* CSS for received messages */
+    .received-message {
+        border: 1px solid blue; /* Blue border for received messages */
+        padding: 10px;
+        margin: 10px 0;
+        text-align: right;
+    }
+    
+    /* Media queries for responsiveness */
+    @media (max-width: 767px) {
+        .sent-message, .received-message {
+            font-size: 14px; /* Adjust font size for small screens */
+        }
+    }
+
+/* Custom styles for the sidebar links */
+.sidebar a.nav-link,
+.sidebar a.nav-link span {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase; /* Make text uppercase */
+    color: white !important; /* Set color to white and use !important */
+    transition: color 0.3s; /* Add transition for smooth color change */
+    display: block; /* Ensure the link takes up the entire width of the sidebar */
+    padding: 10px 20px; /* Add padding to improve clickability */
+}
+
+/* Hover effect */
+.sidebar a.nav-link:hover,
+.sidebar a.nav-link:hover span {
+    color: #5e5050 !important; /* Gray fading color on hover */
+}
+
+/* Active class effect */
+.sidebar a.nav-link.active,
+.sidebar a.nav-link.active span {
+    color: #CCCCCC !important; /* Gray fading color for active link */
+}
+.sidebar a.nav-link.active:hover,
+.sidebar a.nav-link.active span:hover {
+    color: #CCCCCC !important; /* Gray fading color for active link */
+}
+.green {
+    color:green
+}
+a.more {
+    color: aliceblue;
+}
+a.more:hover {
+    color: rgb(172, 236, 21)
 }

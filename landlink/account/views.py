@@ -61,7 +61,8 @@ def buyer_dashboard(request):
 
 @login_required
 def seller_dashboard(request):
-    return render(request, 'account/seller_dashboard.html')
+    lands = Land.objects.filter(owner=request.user.id)
+    return render(request, 'account/seller_dashboard.html', {'lands':lands})
 
 @login_required
 def lawyer_dashboard(request):

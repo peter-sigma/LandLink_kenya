@@ -1,0 +1,55 @@
+{% extends 'land/base.html' %}
+
+{% block content %}
+    <h2>Update Location</h2>
+    <button onclick="getLocation()">Update Location</button>
+
+    <div id="location-info"></div>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                console.error("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            
+            // Display latitude and longitude
+            var locationInfo = document.getElementById("location-info");
+            locationInfo.innerHTML = "Latitude: " + latitude + ", Longitude: " + longitude;
+            
+            // Call updateLocation function with latitude and longitude
+            var landId = {{ land.id }};
+            updateLocation(landId, latitude, longitude);
+        }
+
+        function updateLocation(landId, latitude, longitude) {
+            console.log('Updating location...');
+            const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+        
+            const formData = new FormData();
+            formData.append('csrfmiddlewaretoken', csrfToken);
+            formData.append('latitude', latitude);
+            formData.append('longitude', longitude);
+        
+            fetch(`/lands/${landId}/update-location/`, {
+                method: 'POST',
+                body: formData, // Don't set Content-Type here
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Handle response from backend if needed
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        
+    </script>
+{% endblock %}

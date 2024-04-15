@@ -1,9 +1,56 @@
-{% extends 'account/base.html' %}
-{% block title %}Lawyer Dashboard - LandLink{% endblock %}
-
+{% extends 'land/base.html' %}
 {% block content %}
-<div class="container">
-    <h1>Welcome to Lawyer Dashboard</h1>
-    <!-- Add your lawyer dashboard content here -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-md-9 content" > <!-- Adjust the top margin to match the height of the navigation bar -->
+            <h1 class="text-center">Hello {{ user.username }}</h1>
+            <h2 class="text-center">Welcome to the Seller Dashboard</h2>
+            <p>This is where you can manage your listings and communicate with buyers.
+                This is where you can manage your listings and communicate with buyers.
+                This is where you can manage your listings and communicate with buyers.
+                This is where you can manage your listings and communicate with buyers.
+            </p>
+            <div class="row mt-5">
+                {% if lands %}
+                    {% for land in lands %}
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ land.image.url }}" class="card-img-top img-fluid" alt="{{ land.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ land.title }}</h5>
+                                <a href="{% url 'land_detail' land.id %}" class="btn btn-primary">More</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <p>THE END</p>
+                {% else %}
+                    <div class="col">
+                        <p>No land is available.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-3  col-12 sidebar" style="margin-top: 75px;">
+            <h2>Seller Dashboard</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'seller_dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Manage Listings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'messaging:view_messages' %}">View Messages</a>
+                    <a class="nav-link" href="{% url 'messaging:send_custom_message_get' %}">Send Message</a>
+                    <a class="nav-link" href="{% url 'add_land' %}">Add Land</a>
+                </li>
+                <!-- Add more sidebar links as needed -->
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}

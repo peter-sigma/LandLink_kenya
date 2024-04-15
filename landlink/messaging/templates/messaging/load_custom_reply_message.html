@@ -1,0 +1,17 @@
+{% extends 'account/base.html' %}
+
+{% block title %}Send Message - LandLink{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Send Message</h1>
+    <form method=post action="{% url 'messaging:send_custom_reply_message' chat.id message.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="message_content">Message:</label>
+            <textarea class="form-control" name="message_content" rows="4" cols="50"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
+{% endblock %}

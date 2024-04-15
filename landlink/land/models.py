@@ -8,6 +8,8 @@ class Land(models.Model):
         ('urban', 'Urban'),
     ]
 
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     image = models.ImageField(upload_to='land_images/')
     title = models.CharField(max_length=100)
     locality = models.CharField(max_length=20, choices=LOCALITY_CHOICES, default='rural')

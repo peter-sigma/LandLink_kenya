@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'account',
     'land',
     'messaging',
+    'land_service',
+    'location_app',
 ]
 
 AUTH_USER_MODEL = 'account.CustomUser'
@@ -133,4 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
 

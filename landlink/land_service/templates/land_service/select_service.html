@@ -1,0 +1,18 @@
+{% extends 'land/base.html' %}
+{% block content %}
+<h2>Select Service</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="service">Select Service:</label>
+    <select name="service" id="service">
+        {% for service in services %}
+            <option value="{{ service.id }}">{{ service.name }}</option>
+        {% endfor %}
+    </select>
+    <label for="cost">Cost:</label>
+    <input type="number" name="cost" id="cost" value="{{ service.cost }}">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<a href="{% url 'add_service' %}" class="btn btn-secondary">Add Service</a>
+<a href="{% url 'lawyer_dashboard' %}" class="btn btn-secondary">Go to Lawyer Dashboard</a>
+{% endblock %}

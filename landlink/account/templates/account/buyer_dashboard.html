@@ -1,43 +1,50 @@
+
 {% extends 'account/base.html' %}
+{% load static %}
 {% block title %}{{ user.username }}'s Dashboard - LandLink{% endblock %}
-
+<style>
+    .green {
+        color: green;
+    }
+</style>
 {% block content %}
-<div class="container-fluid">
-    <div class="row" >
-        <div class="col-md-12" style="background-color: #cce6ff; padding: 10px;"> <!-- Bluish background color -->
-            <!-- Left-hand side section with links -->
-            <div class="list-group">
-                <a href="{% url 'messaging:view_messages' %}" class="list-group-item list-group-item-action">Messages</a>
-                <a href="{% url 'buyer_dashboard' %}" class="list-group-item list-group-item-action">Buyer Dashboard</a>
-                <a href="{% url 'home' %}" class="list-group-item list-group-item-action">Home</a>
-            </div>
-        </div>
-    </div>
-
     <div class="row mt-5" style="margin-top: 70px;"> <!-- Adjusted margin top to avoid overlapping with the header -->
-        <div class="col-md-12">
+        <div class="col-md-3 sidebar bg-dark text-light"  style="height: 80vh;"> <!-- Define sidebar column -->
+            <!-- Sidebar content goes here -->
+            <h3 class="text-center"><span style="text-transform: uppercase; text-decoration: underline;">Sidebar</h3>
+            <!-- Add your sidebar text here -->
+                <a class="nav-link active text-center" href=""><i class="fas fa-tachometer-alt"></i><span>DASHBOARD</span></a>
+                <a class="nav-link text-center" href=""><i class="fas fa-tachometer-alt"></i>profile</a>
+                <a class="nav-link text-center" href="{% url 'messaging:view_chats' %}"><i class="fas fa-tachometer-alt"></i>chats</a>    
+                <a class="nav-link text-center" href=""><i class="fas fa-tachometer-alt"></i>land services</a>
+                <a class="nav-link text-center" href=""><i class="fas fa-tachometer-alt"></i>another link</a>
+        </div>
+        <div class="col-md-9"> <!-- Main content column -->
             <!-- Main content area -->
             <div class="row mt-5">
                 <div class="col-md-12">
                     <h2 class="text-center">Hello {{ user.username }}</h2>
-                    <h3 class="text-center">Welcome to Buyers Dashboard</h3>
-                </div>
-            </div>
-            <div class="row mt-5">
-                {% for land in lands %}
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                    <div class="card h-100">
-                        <img src="{{ land.image.url }}" class="card-img-top img-fluid" alt="{{ land.title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ land.title }}</h5>
-                            <a href="{% url 'land_detail' land.id %}" class="btn btn-primary">More</a>
-                        </div>
+                    <!-- Wrap the long text using CSS -->
+                    <h3 style="word-wrap: break-word;">
+                        Welcome to Buyers Dashboard 
+                    </h3>
+                    <div class="row mt-5">
+                        {% for land in lands %}
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                <div class="card h-100">
+                                    <img src="{{ land.image.url }}" class="card-img-top img-fluid" alt="{{ land.title }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ land.title }}</h5>
+                                        <a href="{% url 'land_detail' land.id %}" class="btn btn-primary more">More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
                     </div>
                 </div>
-                {% endfor %}
-                Nothing left to show
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
+

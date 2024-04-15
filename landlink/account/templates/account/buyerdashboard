@@ -1,0 +1,14 @@
+<div class="row mt-5">
+    {% for land in lands %}
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card h-100">
+            <img src="{{ land.image.url }}" class="card-img-top img-fluid" alt="{{ land.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ land.title }}</h5>
+                <a href="{% url 'land_detail' land.id %}" class="btn btn-primary">More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    Nothing left to show
+</div>

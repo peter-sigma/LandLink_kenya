@@ -1,0 +1,22 @@
+{% extends 'account/base.html' %}
+
+{% block title %}Create a new chat - LandLink{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>create a new chat</h1>
+    <form method=post action="{% url 'messaging:create_chat'%}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="receiver">Select Receiver</label>
+            <select class="form-control" name="receiver_id">
+                {% for receiver in receivers %}
+                    <option value="{{ receiver.id }}">{{ receiver.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
+    
+{% endblock %}

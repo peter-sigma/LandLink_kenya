@@ -1,48 +1,6 @@
 {% load static %}
 
-<style>body {
-    padding-bottom: 100px; /* Adjust this value as needed */
-}
-/* Sticky footer */
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: teal;
-    color: white;
-    padding: 20px 0;
-}
-header {
-    background-color: teal;
-    color: white;
-    padding: 20px 0;
-}
-/* Add this CSS in your CSS file or in a <style> tag within your HTML template */
-    .footer a {
-        color: white; /* Set the color of the links in the footer to white */
-    }
-    .sent-message {
-        border: 1px solid green; /* Green border for sent messages */
-        padding: 10px;
-        margin: 10px 0;
-        text-align: left;
-    }
-    
-    /* CSS for received messages */
-    .received-message {
-        border: 1px solid blue; /* Blue border for received messages */
-        padding: 10px;
-        margin: 10px 0;
-        text-align: right;
-    }
-    
-    /* Media queries for responsiveness */
-    @media (max-width: 767px) {
-        .sent-message, .received-message {
-            font-size: 14px; /* Adjust font size for small screens */
-        }
-    }</style>
-    </style>
+<style></style>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,24 +11,27 @@ header {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'account/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static '/account/styles.css' %}">
+    <link rel="stylesheet" href="{% static '/account/style.css' %}">
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="container">
             <h1>LandLink</h1>
+            {% block links %}{% endblock %}
         </div>
     </header>
 
     <!-- Content -->
-    <div class="container mt-4">
+    <div class="content container-fluid mt-4">
         {% block content %}{% endblock %}
     </div>
+    
 
     <!-- Footer -->
     <footer>
-        <div class="container">
+        <div class="content container">
             <div class="row">
                 <div class="col-md-6">
                     <p>&copy; 2024 LandLink. All rights reserved.</p>

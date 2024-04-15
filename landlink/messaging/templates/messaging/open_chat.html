@@ -1,0 +1,133 @@
+{% extends 'account/base.html' %}
+
+{% block title %}
+Open chat 
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center" style="font-weight: bold; text-transform: uppercase; font-family: 'Font Awesome 5 Free';">
+                <i class="fas fa-exclamation-circle">Your chat with <span style="color:green">
+                    {% if request.user.username == chat.sender.username %}
+                        {{ chat.receiver.username }}
+                    {% else %}
+                        {{ chat.sender.username }}
+                    {% endif %}
+                    </span></i>
+            </h1>
+            <h3>No of replies is {{replys}}</h3>
+            {% for parent in parents%}
+                <h5>
+                    reply to message with text
+                </h5>
+                <p>{{parent.content}}</p>
+            {% endfor %}
+            {% if messages %}
+                {% for message in messages %}
+                   
+
+                    
+                    <div class="text-center mt-3"> <!-- Center the "Exit Chat" button -->
+                        <div class="list-group rounded p-3">
+                            
+                            <div class="list-group-item bg-light d-flex flex-wrap justify-content-center">
+                               
+                                <!-- Message content -->
+                                <div class="text-center mt-3">
+                                    {% if message.parent > 0%}
+                                        <div class="row justify-content-center bg-success">
+                                            <div class="col-md-12 bg-success">
+                                                <div class="bg-success rounded p-3">
+                                                    {% for parent in parents%}
+                                                        {% comment %} get the parent {% endcomment %}
+                                                        {% if parent.id == message.parent %}
+                                                            {% if request.user.username == chat.sender.username %}
+                                                                {% if message.color == 1 %}
+                                                                    <p>you</p>
+                                                                 {% else %}
+                                                                     <p>{{ chat.receiver.username }}</p>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                {% if message.color == 1 %}
+                                                                    <p>{{ chat.sender.username }}</p>
+                                                                {% else %}
+                                                                    <p>you</p>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            
+                                                                    <p> {{parent.content}} </p>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if request.user.username == chat.sender.username %}
+                                        {% if message.color == 1 %}
+                                            <p>you</p>
+                                        {% else %}
+                                            <p>{{ chat.receiver.username }}</p>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if message.color == 1 %}
+                                            <p>{{ chat.sender.username }}</p>
+                                        {% else %}
+                                            <p>you</p>
+                                        {% endif %}
+                                    {% endif %}
+                                    <p>{{ message.content }}</p>
+                                </div>
+                                
+                               
+                            </div>
+                            <div>
+                                 <!-- Buttons -->
+                                 <ul><br>
+                                    <li class=" d-flex flex-wrap justify-content-center" style="background-color: transparent;"> <!-- Remove background color-->
+                                        <div class="d-md-flex flex-md-row flex-sm-column">
+                                            <div class="mb-2">
+                                                <a href="{% url 'messaging:load_custom_reply_message' chat.id message.id %}" class="btn btn-success mb-md-0 mr-md-2">reply message</a>
+                                            </div>
+                                            <div>
+                                                <a href="{% url 'seller_dashboard' %}" class="btn btn-primary mb-md-0 mr-md-2">exit chat</a>
+                                            </div>
+                                            <div>
+                                                <form action= "{% url 'messaging:delete_message' message.id %}" method="post" style="display: inline;" >
+                                                    {% csrf_token %}
+                                                        <button type="submit" class="btn btn-danger mb-md-0 mr-md-2">delete message</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p>{{ message.timestamp }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center" style="color: red; font-weight: bold; text-transform: uppercase; font-family: 'Font Awesome 5 Free';">
+                    <i class="fas fa-exclamation-circle"></i> No messages inside this chat!!!!
+                </p>
+            {% endif %}
+            <!-- Send message and exit chat buttons -->
+            <div class="text-center mt-3">
+                <ul class="list-group rounded p-3">
+                    <li class="list-group-item bg-light d-flex flex-wrap justify-content-center"> <!-- Gray background -->
+                        <div class="d-md-flex flex-md-row flex-sm-column">
+                            <div class="mb-2">
+                                <a href="{% url 'messaging:send_custom_message_get' chat.id %}" class="btn btn-success mb-md-0 mr-md-2">create new message</a>
+                            </div>
+                            <div>
+                                <a href="{% url 'messaging:view_chats' %}" class="btn btn-primary mb-md-0 mr-md-2">Leave this chat</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

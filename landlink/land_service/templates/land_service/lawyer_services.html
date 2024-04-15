@@ -1,0 +1,28 @@
+{% extends 'land/base.html' %}
+{% block content %}
+<h2>My Services</h2>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Cost</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in lawyer_services %}
+                <tr>
+                    <td>{{ service.service.name }}</td>
+                    <td>{{ service.cost }}</td>
+                    <td>
+                        <a href="{% url 'update_service' service.id %}" class="btn btn-primary">Update</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'lawyer_dashboard' %}" class="btn btn-secondary">Dashboard</a>
+</div>
+{% endblock %}
+
